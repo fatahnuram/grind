@@ -14,7 +14,7 @@ Currently we support installation from source. Other type of installation might 
 
 2. Make sure to update your `$PATH` to include your `$GOBIN`.
 
-3. Run `go install`.
+3. Run `make install`.
 
 4. Let's go `grind`-ing! :muscle:
 
