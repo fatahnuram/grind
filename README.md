@@ -38,6 +38,38 @@ You can follow these simplified guide:
 
 Details about template file can be found in [this docs](docs/template_file.md).
 
+## Developing
+
+### How to unit test
+
+To execute unit test locally, you can run:
+
+```bash
+make test
+```
+
+### How to run locally
+
+To run locally, you can execute:
+
+```bash
+make run
+```
+
+### How to build locally
+
+To build locally, you can execute:
+
+```bash
+make build
+```
+
+## Support
+
+Any bugs, suggestions, or feature request, feel free to [file an issue](https://github.com/fatahnuram/grind/issues/new).
+
+Or, you can directly contact me at fatahnuram@gmail.com.
+
 ## License
 
 This project is licensed under the [GNU General Public License v3.0](LICENSE)
