@@ -70,7 +70,7 @@ Required fields for each values (while others *will be ignored*):
 
 Possible values are: `sun`, `mon`, `tue`, `wed`, `thu`, `fri`, `sat`.
 
-Number representation of `sun` is `1`, while `sat` is `7`.
+Number representation of `sun` is `0`, while `sat` is `6`.
 
 **NOTE**: For `day` values, it is required to use one of the possible values above **and not using** the number representation. These number representations won't be used in the `day` field, but instead it will be used in the `function` field below.
 
