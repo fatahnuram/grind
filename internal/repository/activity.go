@@ -1,5 +1,10 @@
 package repository
 
+import (
+	"strings"
+	"time"
+)
+
 type Frequency int
 
 const (
@@ -25,8 +30,9 @@ type Activity struct {
 }
 
 func DayIntToString(day int) string {
-	// TODO: implement
-	return "wip"
+	tempTime := time.Date(2009, 11, day+1, 0, 0, 0, 0, time.UTC)
+	stringDay := tempTime.Format("Mon")
+	return strings.ToLower(stringDay)
 }
 
 func DayStringToInt(day string) int {
