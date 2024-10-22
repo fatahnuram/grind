@@ -34,3 +34,10 @@ func DayIntToString(day int) string {
 	stringDay := tempTime.Format("Mon")
 	return strings.ToLower(stringDay)
 }
+
+func NewActivity() Activity {
+	return Activity{
+		IsCompleted: false,
+		CompletedAt: "",
+	}
+}

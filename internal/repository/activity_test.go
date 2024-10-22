@@ -56,3 +56,41 @@ func TestDayIntToStringMod7(t *testing.T) {
 		})
 	}
 }
+
+func TestNewActivity(t *testing.T) {
+	wantName := ""
+	wantFreq := 0
+	wantDay := 0
+	wantDate := 0
+	wantMonth := 0
+	wantFunc := ""
+	wantIsComplete := false
+	wantCompletedAt := ""
+
+	got := repository.NewActivity()
+
+	if got.Name != wantName {
+		t.Errorf("incorrect activity name, want: %v, got: %v", wantName, got.Name)
+	}
+	if got.Frequency != repository.Frequency(wantFreq) {
+		t.Errorf("incorrect activity frequency, want: %d, got: %d", wantFreq, got.Frequency)
+	}
+	if got.Day != wantDay {
+		t.Errorf("incorrect activity day, want: %d, got: %d", wantDay, got.Day)
+	}
+	if got.Date != wantDate {
+		t.Errorf("incorrect activity date, want: %d, got: %d", wantDate, got.Date)
+	}
+	if got.Month != wantMonth {
+		t.Errorf("incorrect activity month, want: %d, got: %d", wantMonth, got.Month)
+	}
+	if got.Function != wantFunc {
+		t.Errorf("incorrect activity function, want: %v, got: %v", wantFunc, got.Function)
+	}
+	if got.IsCompleted != wantIsComplete {
+		t.Errorf("incorrect activity complete status, want: %t, got: %t", wantIsComplete, got.IsCompleted)
+	}
+	if got.CompletedAt != wantCompletedAt {
+		t.Errorf("incorrect activity complete timestamp, want: %v, got: %v", wantCompletedAt, got.CompletedAt)
+	}
+}
