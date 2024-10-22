@@ -117,3 +117,29 @@ func TestFreqStringToInt(t *testing.T) {
 		})
 	}
 }
+
+func TestDayStringToInt(t *testing.T) {
+	suites := []struct {
+		Name string
+		Want int
+	}{
+		{Name: "sun", Want: 0},
+		{Name: "mon", Want: 1},
+		{Name: "tue", Want: 2},
+		{Name: "wed", Want: 3},
+		{Name: "thu", Want: 4},
+		{Name: "fri", Want: 5},
+		{Name: "sat", Want: 6},
+		{Name: "xyz", Want: -1},
+	}
+
+	for _, suite := range suites {
+		t.Run(suite.Name, func(t *testing.T) {
+			got := activity.DayStringToInt(suite.Name)
+
+			if got != suite.Want {
+				t.Errorf("incorrect day string to int conversion for %v, want: %d, got: %d", suite.Name, suite.Want, got)
+			}
+		})
+	}
+}

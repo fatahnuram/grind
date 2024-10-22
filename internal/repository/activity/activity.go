@@ -2,6 +2,7 @@ package activity
 
 import (
 	"log"
+	"slices"
 	"strconv"
 	"strings"
 	"time"
@@ -18,6 +19,8 @@ const (
 )
 
 const ActivityColumnCount = 6
+
+var Days = []string{"sun", "mon", "tue", "wed", "thu", "fri", "sat"}
 
 type Activity struct {
 	// from data csv
@@ -37,6 +40,10 @@ func DayIntToString(day int) string {
 	tempTime := time.Date(2009, 11, (day%7)+1, 0, 0, 0, 0, time.UTC)
 	stringDay := tempTime.Format("Mon")
 	return strings.ToLower(stringDay)
+}
+
+func DayStringToInt(day string) int {
+	return slices.Index(Days, day)
 }
 
 func FreqStringToInt(freq string) Frequency {
@@ -88,7 +95,7 @@ func CsvToActivity(line string, act *Activity) {
 
 	act.Name = cols[0]
 	act.Frequency = FreqStringToInt(cols[1])
-	// act.Day
+	act.Day = DayStringToInt(cols[2])
 	act.Date = strToInt(cols[3])
 	// act.Month
 	act.Function = cols[5]
