@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/fatahnuram/grind/internal/repository"
+	"github.com/fatahnuram/grind/internal/repository/activity"
 )
 
 var datafile = "./grind.csv"
@@ -17,7 +17,7 @@ func main() {
 	}
 	defer file.Close()
 
-	act := repository.NewActivity()
+	act := activity.NewActivity()
 	scanner := bufio.NewScanner(file)
 	for i := 0; scanner.Scan(); {
 		if i == 0 {
@@ -25,7 +25,7 @@ func main() {
 			continue
 		}
 		// fmt.Printf("line %d, content: %v\n", i, scanner.Text())
-		repository.CsvToActivity(scanner.Text(), &act)
+		activity.CsvToActivity(scanner.Text(), &act)
 		i++
 	}
 	if err = scanner.Err(); err != nil {
