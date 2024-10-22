@@ -21,6 +21,7 @@ const (
 const ActivityColumnCount = 6
 
 var Days = []string{"sun", "mon", "tue", "wed", "thu", "fri", "sat"}
+var Frequencies = []string{"daily", "weekly", "monthly", "annually", "custom"}
 
 type Activity struct {
 	// from data csv
@@ -47,20 +48,7 @@ func DayStringToInt(day string) int {
 }
 
 func FreqStringToInt(freq string) Frequency {
-	switch freq {
-	case "daily":
-		return Daily
-	case "weekly":
-		return Weekly
-	case "monthly":
-		return Monthly
-	case "annually":
-		return Annually
-	case "custom":
-		return Custom
-	default:
-		return -1
-	}
+	return Frequency(slices.Index(Frequencies, freq))
 }
 
 func NewActivity() Activity {
