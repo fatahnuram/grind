@@ -39,6 +39,23 @@ func DayIntToString(day int) string {
 	return strings.ToLower(stringDay)
 }
 
+func FreqStringToInt(freq string) Frequency {
+	switch freq {
+	case "daily":
+		return Daily
+	case "weekly":
+		return Weekly
+	case "monthly":
+		return Monthly
+	case "annually":
+		return Annually
+	case "custom":
+		return Custom
+	default:
+		return -1
+	}
+}
+
 func NewActivity() Activity {
 	return Activity{
 		IsCompleted: false,
@@ -70,7 +87,7 @@ func CsvToActivity(line string, act *Activity) {
 	}
 
 	act.Name = cols[0]
-	// act.Frequency
+	act.Frequency = FreqStringToInt(cols[1])
 	// act.Day
 	act.Date = strToInt(cols[3])
 	// act.Month

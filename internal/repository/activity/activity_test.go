@@ -94,3 +94,26 @@ func TestNewActivity(t *testing.T) {
 		t.Errorf("incorrect activity complete timestamp, want: %v, got: %v", wantCompletedAt, got.CompletedAt)
 	}
 }
+
+func TestFreqStringToInt(t *testing.T) {
+	suites := []struct {
+		Freq string
+		Want activity.Frequency
+	}{
+		{Freq: "daily", Want: activity.Daily},
+		{Freq: "weekly", Want: activity.Weekly},
+		{Freq: "monthly", Want: activity.Monthly},
+		{Freq: "annually", Want: activity.Annually},
+		{Freq: "custom", Want: activity.Custom},
+		{Freq: "xyz", Want: -1},
+	}
+
+	for _, suite := range suites {
+		t.Run(suite.Freq, func(t *testing.T) {
+			got := activity.FreqStringToInt(suite.Freq)
+			if got != suite.Want {
+				t.Errorf("incorrect frequency string conversion, want: %v, got: %v", suite.Want, got)
+			}
+		})
+	}
+}
