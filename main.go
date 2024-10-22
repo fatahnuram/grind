@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"os"
 
@@ -17,15 +18,17 @@ func main() {
 	}
 	defer file.Close()
 
-	act := activity.NewActivity()
 	scanner := bufio.NewScanner(file)
 	for i := 0; scanner.Scan(); {
 		if i == 0 {
 			// csv headers
+			i++
 			continue
 		}
 		// fmt.Printf("line %d, content: %v\n", i, scanner.Text())
+		act := activity.NewActivity()
 		activity.CsvToActivity(scanner.Text(), &act)
+		fmt.Printf("activity: %#v\n", act)
 		i++
 	}
 	if err = scanner.Err(); err != nil {
