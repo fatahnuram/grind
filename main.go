@@ -20,6 +20,10 @@ func main() {
 	act := repository.NewActivity()
 	scanner := bufio.NewScanner(file)
 	for i := 0; scanner.Scan(); {
+		if i == 0 {
+			// csv headers
+			continue
+		}
 		// fmt.Printf("line %d, content: %v\n", i, scanner.Text())
 		repository.CsvToActivity(scanner.Text(), &act)
 		i++
