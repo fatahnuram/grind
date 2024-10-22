@@ -21,6 +21,7 @@ const (
 const ActivityColumnCount = 6
 
 var Days = []string{"sun", "mon", "tue", "wed", "thu", "fri", "sat"}
+var Months = []string{"jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"}
 var Frequencies = []string{"daily", "weekly", "monthly", "annually", "custom"}
 
 type Activity struct {
@@ -45,6 +46,15 @@ func DayIntToString(day int) string {
 
 func DayStringToInt(day string) int {
 	return slices.Index(Days, day)
+}
+
+func MonthStringToInt(month string) int {
+	result := slices.Index(Months, month)
+	if result < 0 {
+		return result
+	} else {
+		return result + 1
+	}
 }
 
 func FreqStringToInt(freq string) Frequency {
@@ -85,7 +95,7 @@ func CsvToActivity(line string, act *Activity) {
 	act.Frequency = FreqStringToInt(cols[1])
 	act.Day = DayStringToInt(cols[2])
 	act.Date = strToInt(cols[3])
-	// act.Month
+	act.Month = MonthStringToInt(cols[4])
 	act.Function = cols[5]
 
 	// walk at least 30 mins, daily, 0, 0, 0, 0

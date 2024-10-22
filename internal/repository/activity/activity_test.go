@@ -143,3 +143,34 @@ func TestDayStringToInt(t *testing.T) {
 		})
 	}
 }
+
+func TestMonthStringToInt(t *testing.T) {
+	suites := []struct {
+		Name string
+		Want int
+	}{
+		{Name: "jan", Want: 1},
+		{Name: "feb", Want: 2},
+		{Name: "mar", Want: 3},
+		{Name: "apr", Want: 4},
+		{Name: "may", Want: 5},
+		{Name: "jun", Want: 6},
+		{Name: "jul", Want: 7},
+		{Name: "aug", Want: 8},
+		{Name: "sep", Want: 9},
+		{Name: "oct", Want: 10},
+		{Name: "nov", Want: 11},
+		{Name: "dec", Want: 12},
+		{Name: "xyz", Want: -1},
+	}
+
+	for _, suite := range suites {
+		t.Run(suite.Name, func(t *testing.T) {
+			got := activity.MonthStringToInt(suite.Name)
+
+			if got != suite.Want {
+				t.Errorf("incorrect month string to int conversion for %v, want: %d, got: %d", suite.Name, suite.Want, got)
+			}
+		})
+	}
+}
