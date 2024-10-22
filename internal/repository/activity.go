@@ -34,18 +34,3 @@ func DayIntToString(day int) string {
 	stringDay := tempTime.Format("Mon")
 	return strings.ToLower(stringDay)
 }
-
-func DayStringToInt(day string) int {
-	// TODO: implement
-	return -1
-}
-
-func MonthIntToString(month int) string {
-	// TODO: implement
-	return "wip"
-}
-
-func MonthStringToInt(month string) int {
-	// TODO: implement
-	return -1
-}
