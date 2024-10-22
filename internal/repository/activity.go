@@ -30,7 +30,7 @@ type Activity struct {
 }
 
 func DayIntToString(day int) string {
-	tempTime := time.Date(2009, 11, day+1, 0, 0, 0, 0, time.UTC)
+	tempTime := time.Date(2009, 11, (day%7)+1, 0, 0, 0, 0, time.UTC)
 	stringDay := tempTime.Format("Mon")
 	return strings.ToLower(stringDay)
 }

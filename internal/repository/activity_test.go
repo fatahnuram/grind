@@ -31,3 +31,28 @@ func TestDayIntToString(t *testing.T) {
 		})
 	}
 }
+
+func TestDayIntToStringMod7(t *testing.T) {
+	suites := []struct {
+		WantNum    int
+		WantString string
+	}{
+		{7, "sun"},
+		{15, "mon"},
+		{23, "tue"},
+		{31, "wed"},
+		{39, "thu"},
+		{47, "fri"},
+		{55, "sat"},
+	}
+
+	for _, suite := range suites {
+		name := fmt.Sprintf("%d-%v", suite.WantNum, suite.WantString)
+		t.Run(name, func(t *testing.T) {
+			got := repository.DayIntToString(suite.WantNum)
+			if got != suite.WantString {
+				t.Errorf("incorrect day int to string conversion, want: %v, got: %v", suite.WantString, got)
+			}
+		})
+	}
+}
