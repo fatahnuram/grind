@@ -118,6 +118,38 @@ func TestFreqStringToInt(t *testing.T) {
 	}
 }
 
+func TestFreqIntToString(t *testing.T) {
+	suites := []struct {
+		Freq activity.Frequency
+		Want string
+	}{
+		{Freq: activity.Daily, Want: "daily"},
+		{Freq: activity.Weekly, Want: "weekly"},
+		{Freq: activity.Monthly, Want: "monthly"},
+		{Freq: activity.Annually, Want: "annually"},
+		{Freq: activity.Custom, Want: "custom"},
+		{Freq: -1, Want: ""},
+		{Freq: 0, Want: "daily"},
+		{Freq: 1, Want: "weekly"},
+		{Freq: 2, Want: "monthly"},
+		{Freq: 3, Want: "annually"},
+		{Freq: 4, Want: "custom"},
+		{Freq: 5, Want: ""},
+		{Freq: 6, Want: ""},
+		{Freq: 7, Want: ""},
+	}
+
+	for _, suite := range suites {
+		t.Run(fmt.Sprintf("%d-%v", suite.Freq, suite.Want), func(t *testing.T) {
+			got := activity.FreqIntToString(suite.Freq)
+
+			if got != suite.Want {
+				t.Errorf("incorrect frequency int conversion, want: %v, got: %v", suite.Want, got)
+			}
+		})
+	}
+}
+
 func TestDayStringToInt(t *testing.T) {
 	suites := []struct {
 		Name string
@@ -170,6 +202,40 @@ func TestMonthStringToInt(t *testing.T) {
 
 			if got != suite.Want {
 				t.Errorf("incorrect month string to int conversion for %v, want: %d, got: %d", suite.Name, suite.Want, got)
+			}
+		})
+	}
+}
+
+func TestMonthIntToString(t *testing.T) {
+	suites := []struct {
+		Month int
+		Want  string
+	}{
+		{Month: 1, Want: "jan"},
+		{Month: 2, Want: "feb"},
+		{Month: 3, Want: "mar"},
+		{Month: 4, Want: "apr"},
+		{Month: 5, Want: "may"},
+		{Month: 6, Want: "jun"},
+		{Month: 7, Want: "jul"},
+		{Month: 8, Want: "aug"},
+		{Month: 9, Want: "sep"},
+		{Month: 10, Want: "oct"},
+		{Month: 11, Want: "nov"},
+		{Month: 12, Want: "dec"},
+		{Month: 13, Want: ""},
+		{Month: 100, Want: ""},
+		{Month: 0, Want: ""},
+		{Month: -5, Want: ""},
+	}
+
+	for _, suite := range suites {
+		t.Run(fmt.Sprintf("%d-%v", suite.Month, suite.Want), func(t *testing.T) {
+			got := activity.MonthIntToString(suite.Month)
+
+			if got != suite.Want {
+				t.Errorf("incorrect month int to string conversion for %d, want: %v, got: %v", suite.Month, suite.Want, got)
 			}
 		})
 	}

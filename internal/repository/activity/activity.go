@@ -1,10 +1,13 @@
 package activity
 
 import (
+	"fmt"
 	"log"
+	"os"
 	"slices"
 	"strconv"
 	"strings"
+	"text/tabwriter"
 	"time"
 )
 
@@ -57,8 +60,22 @@ func MonthStringToInt(month string) int {
 	}
 }
 
+func MonthIntToString(month int) string {
+	if month < 1 || month > 12 {
+		return ""
+	}
+	return Months[month-1]
+}
+
 func FreqStringToInt(freq string) Frequency {
 	return Frequency(slices.Index(Frequencies, freq))
+}
+
+func FreqIntToString(freq Frequency) string {
+	if int(freq) >= len(Frequencies) || int(freq) < 0 {
+		return ""
+	}
+	return Frequencies[freq]
 }
 
 func NewActivity() Activity {
@@ -103,4 +120,16 @@ func CsvToActivity(line string, act *Activity) {
 	// pay internet and water bills, monthly, 0, 12, 0, 0
 	// report annual taxes, annually, 0, 1, mar, 0
 	// clean up cat's litter box, custom, 0, 0, 0, date%3==0
+}
+
+func PrettyPrint(acts []Activity) {
+	w := tabwriter.NewWriter(os.Stdout, 1, 1, 3, ' ', 0)
+
+	// headers
+	fmt.Fprintln(w, strings.ToUpper("name\tfrequency\tday\tdate\tmonth\tfunction"))
+
+	for _, act := range acts {
+		fmt.Fprintf(w, "%v\t%v\t%v\t%d\t%v\t%v\n", act.Name, FreqIntToString(act.Frequency), DayIntToString(act.Day), act.Date, MonthIntToString(act.Month), act.Function)
+	}
+	w.Flush()
 }
