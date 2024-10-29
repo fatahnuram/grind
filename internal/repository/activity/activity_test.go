@@ -225,3 +225,25 @@ func TestMonthIntToString(t *testing.T) {
 		})
 	}
 }
+
+func TestDateIntToString(t *testing.T) {
+	suites := []struct {
+		Date int
+		Want string
+	}{
+		{Date: -1, Want: ""},
+		{Date: 0, Want: ""},
+		{Date: 1, Want: "1"},
+		{Date: 2, Want: "2"},
+	}
+
+	for _, suite := range suites {
+		t.Run(fmt.Sprintf("%d-string(%v)", suite.Date, suite.Want), func(t *testing.T) {
+			got := activity.DateIntToString(suite.Date)
+
+			if got != suite.Want {
+				t.Errorf("incorrect date int to string conversion for %d, want: %v, got: %v", suite.Date, suite.Want, got)
+			}
+		})
+	}
+}

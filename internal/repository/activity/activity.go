@@ -81,6 +81,13 @@ func FreqIntToString(freq Frequency) string {
 	return Frequencies[freq]
 }
 
+func DateIntToString(d int) string {
+	if d < 1 {
+		return ""
+	}
+	return fmt.Sprintf("%d", d)
+}
+
 func NewActivity() Activity {
 	return Activity{
 		IsCompleted: false,
@@ -113,16 +120,41 @@ func CsvToActivity(line string, act *Activity) {
 
 	act.Name = cols[0]
 	act.Frequency = FreqStringToInt(cols[1])
-	act.Day = DayStringToInt(cols[2])
-	act.Date = strToInt(cols[3])
-	act.Month = MonthStringToInt(cols[4])
-	act.Function = cols[5]
 
-	// walk at least 30 mins, daily, 0, 0, 0, 0
-	// swimming 1 hour, weekly, sat, 0, 0, 0
-	// pay internet and water bills, monthly, 0, 12, 0, 0
-	// report annual taxes, annually, 0, 1, mar, 0
-	// clean up cat's litter box, custom, 0, 0, 0, date%3==0
+	switch act.Frequency {
+	case Daily:
+		act.Day = -1
+		act.Date = -1
+		act.Month = -1
+		act.Function = ""
+
+	case Weekly:
+		act.Day = DayStringToInt(cols[2])
+		act.Date = -1
+		act.Month = -1
+		act.Function = ""
+
+	case Monthly:
+		act.Day = -1
+		act.Date = strToInt(cols[3])
+		act.Month = -1
+		act.Function = ""
+
+	case Annually:
+		act.Day = -1
+		act.Date = strToInt(cols[3])
+		act.Month = MonthStringToInt(cols[4])
+		act.Function = ""
+
+	case Custom:
+		act.Day = -1
+		act.Date = -1
+		act.Month = -1
+		act.Function = cols[5]
+
+	default:
+		log.Fatalf("cannot parse frequency: %v", cols[1])
+	}
 }
 
 func PrettyPrint(acts []Activity) {
@@ -132,7 +164,7 @@ func PrettyPrint(acts []Activity) {
 	fmt.Fprintln(w, strings.ToUpper("name\tfrequency\tday\tdate\tmonth\tfunction"))
 
 	for _, act := range acts {
-		fmt.Fprintf(w, "%v\t%v\t%v\t%d\t%v\t%v\n", act.Name, FreqIntToString(act.Frequency), DayIntToString(act.Day), act.Date, MonthIntToString(act.Month), act.Function)
+		fmt.Fprintf(w, "%v\t%v\t%v\t%v\t%v\t%v\n", act.Name, FreqIntToString(act.Frequency), DayIntToString(act.Day), DateIntToString(act.Date), MonthIntToString(act.Month), act.Function)
 	}
 	w.Flush()
 }
