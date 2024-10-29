@@ -12,6 +12,9 @@ func TestDayIntToString(t *testing.T) {
 		WantNum    int
 		WantString string
 	}{
+		{-15, ""},
+		{-7, ""},
+		{-1, ""},
 		{0, "sun"},
 		{1, "mon"},
 		{2, "tue"},
@@ -19,24 +22,6 @@ func TestDayIntToString(t *testing.T) {
 		{4, "thu"},
 		{5, "fri"},
 		{6, "sat"},
-	}
-
-	for _, suite := range suites {
-		name := fmt.Sprintf("%d-%v", suite.WantNum, suite.WantString)
-		t.Run(name, func(t *testing.T) {
-			got := activity.DayIntToString(suite.WantNum)
-			if got != suite.WantString {
-				t.Errorf("incorrect day int to string conversion, want: %v, got: %v", suite.WantString, got)
-			}
-		})
-	}
-}
-
-func TestDayIntToStringMod7(t *testing.T) {
-	suites := []struct {
-		WantNum    int
-		WantString string
-	}{
 		{7, "sun"},
 		{15, "mon"},
 		{23, "tue"},
