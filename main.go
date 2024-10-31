@@ -9,6 +9,7 @@ import (
 )
 
 var datafile = "./grind.csv"
+var progressfile = "./progress.json"
 
 func main() {
 	file, err := os.Open(datafile)
