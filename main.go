@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/fatahnuram/grind/internal/repository/activity"
+	"github.com/fatahnuram/grind/internal/repository/progress"
 )
 
 var datafile = "./grind.csv"
@@ -36,5 +37,7 @@ func main() {
 		log.Fatal(err)
 	}
 
+	progress := progress.FromActivities(activities)
 	activity.PrettyPrint(activities)
+	progress.DumpJson(progressfile)
 }
